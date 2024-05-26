@@ -5,7 +5,7 @@ GET http://localhost:8888/hello
 GET http://localhost:8888/gw
 
 ### POST user
-POST http://localhost:8888/gw/cn.chasen.rpc.demo.api.UserService
+POST http://localhost:8888/ga/cn.chasen.rpc.demo.api.UserService
 Content-Type: application/json
 
 {

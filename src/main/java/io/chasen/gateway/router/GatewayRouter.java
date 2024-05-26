@@ -1,4 +1,4 @@
-package io.chasen.gateway;
+package io.chasen.gateway.router;
 
 import io.chasen.gateway.handler.GatewayHandler;
 import io.chasen.gateway.handler.HelloHandler;
@@ -40,5 +40,11 @@ public class GatewayRouter {
     @Bean
     public RouterFunction<?> gatewayRouterFunction() {
         return route(GET("/gw").or(POST("/gw/**")), gatewayHandler::handler);
+    }
+
+
+    @Bean
+    public RouterFunction<?> gatewayWebRouterFunction() {
+        return route(GET("/ga").or(POST("/gw/ga")), gatewayHandler::handler);
     }
 }
