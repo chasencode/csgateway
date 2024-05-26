@@ -1,0 +1,8 @@
+spring:
+    application:
+        name: csgateway
+server:
+    port: 8888
+
+ck:
+    servers: http://127.0.0.1:8484
