@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ### POST direct
-POST http://localhost:8888/gw/direct/cn.chasen.rpc.demo.api.UserService?backend=http://localhost:8081/csrpc
+POST http://localhost:8888/gw/direct/cn.chasen.rpc.demo.api.UserService?backend=http://localhost:8081/csrpc?service=cn.chasen.rpc.demo.api.UserService
 Content-Type: application/json
 
 {
