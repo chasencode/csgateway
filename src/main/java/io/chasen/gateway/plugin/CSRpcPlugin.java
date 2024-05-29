@@ -36,11 +36,11 @@ public class CSRpcPlugin extends AbstractGatewayPlugin{
     LoadBalancer<InstanceMeta> loadBalancer = new RoundRibonLoadBalancer<>();
 
     @Override
-    public Mono<Void> doHandle(ServerWebExchange exchange) {
+    public Mono<Void> doHandle(ServerWebExchange exchange, GatewayPluginChain chain) {
         log.info(" ====>> CSRPC Gateway plugin");
 
         // 1. 通过请求路径或者获取服务名称
-        String service = exchange.getRequest().getPath().value().substring(prefix.length());
+        String service = exchange.getRequest().getPath().value().substring(prefix.length() + 1);
         System.out.println("service: " + service);
         // app=app1, namespace=public, env=dev, name=cn.chasen.rpc.demo.api.UserService
         ServiceMeta serviceMeta = ServiceMeta.builder()
@@ -71,7 +71,7 @@ public class CSRpcPlugin extends AbstractGatewayPlugin{
         // 7.组装返回响应报文
         return body.flatMap(x->exchange.getResponse()
                 .writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(x.getBytes())))
-        );
+        ).then(chain.handle(exchange));
     }
 
     @Override

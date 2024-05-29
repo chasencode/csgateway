@@ -5,6 +5,7 @@ import cn.chasen.rpc.core.api.RegistryCenter;
 import cn.chasen.rpc.core.cluster.RoundRibonLoadBalancer;
 import cn.chasen.rpc.core.meta.InstanceMeta;
 import cn.chasen.rpc.core.meta.ServiceMeta;
+import io.chasen.gateway.plugin.DefaultGatewayPluginChain;
 import io.chasen.gateway.plugin.GatewayPlugin;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -46,18 +47,7 @@ public class GatewayWebHandler implements WebHandler {
             ));
         }
 
-        for (GatewayPlugin plugin : plugins) {
-            if (plugin.support(exchange)) {
-                return plugin.handle(exchange);
-            }
-        }
-
-        String mock = """
-                    {"result":"no support plugin"}
-                    """;
-        return exchange.getResponse().writeWith(Flux.just(
-                exchange.getResponse().bufferFactory().wrap(mock.getBytes())
-        ));
+        return new DefaultGatewayPluginChain(plugins).handle(exchange);
     }
     
 }
