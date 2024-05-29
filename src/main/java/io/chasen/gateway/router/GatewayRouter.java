@@ -37,14 +37,14 @@ public class GatewayRouter {
         return route(GET("/hello"), helloHandler::handler);
     }
 
-    @Bean
-    public RouterFunction<?> gatewayRouterFunction() {
-        return route(GET("/gw").or(POST("/gw/**")), gatewayHandler::handler);
-    }
+//    @Bean
+//    public RouterFunction<?> gatewayRouterFunction() {
+////        return route(GET("/gw").or(POST("/gw/**")), gatewayHandler::handler);
+//    }
 
 
-    @Bean
-    public RouterFunction<?> gatewayWebRouterFunction() {
-        return route(GET("/ga").or(POST("/gw/ga")), gatewayHandler::handler);
-    }
+//    @Bean
+//    public RouterFunction<?> gatewayWebRouterFunction() {
+//        return route(GET("/ga").or(POST("/gw/ga")), gatewayHandler::handler);
+//    }
 }

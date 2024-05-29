@@ -30,30 +30,30 @@ public class GatewayHandler {
 
     LoadBalancer<InstanceMeta> loadBalancer = new RoundRibonLoadBalancer<>();
 
-    public Mono<ServerResponse> handler(ServerRequest request) {
-        // 1. 通过请求路径或者获取服务名称
-        String service = request.path().substring(4);
-        System.out.println("service: " + service);
-        // app=app1, namespace=public, env=dev, name=cn.chasen.rpc.demo.api.UserService
-        ServiceMeta serviceMeta = ServiceMeta.builder()
-                .app("app1").env("dev").name(service).namespace("public").build();
-        // 2. 从注册中心获取服务实例
-        List<InstanceMeta> instanceMetas = rc.fetchAll(serviceMeta);
-        // 3. 选择一个服务实例进行请求
-        InstanceMeta choose = loadBalancer.choose(instanceMetas);
-        String url =  choose.toUrl();;
-//        String url = instanceMetas.get(0).toUrl();
-        System.out.println("url: " + url);
-        // 4. 拿到请求报文
-        Mono<String> requestMono = request.bodyToMono(String.class);
+//    public Mono<ServerResponse> handler(ServerRequest request) {
+//        // 1. 通过请求路径或者获取服务名称
+//        String service = request.path().substring(4);
+//        System.out.println("service: " + service);
+//        // app=app1, namespace=public, env=dev, name=cn.chasen.rpc.demo.api.UserService
+//        ServiceMeta serviceMeta = ServiceMeta.builder()
+//                .app("app1").env("dev").name(service).namespace("public").build();
+//        // 2. 从注册中心获取服务实例
+//        List<InstanceMeta> instanceMetas = rc.fetchAll(serviceMeta);
+//        // 3. 选择一个服务实例进行请求
+//        InstanceMeta choose = loadBalancer.choose(instanceMetas);
+//        String url =  choose.toUrl();;
+////        String url = instanceMetas.get(0).toUrl();
+//        System.out.println("url: " + url);
+//        // 4. 拿到请求报文
+//        Mono<String> requestMono = request.bodyToMono(String.class);
+//
+//        return requestMono.flatMap(x -> {
+//            return invokeFromRegistry(x, url);
+//        });
 
-        return requestMono.flatMap(x -> {
-            return invokeFromRegistry(x, url);
-        });
 
 
-
-    }
+//    }
 
     @NotNull
     private static Mono<ServerResponse> invokeFromRegistry(String x, String url) {

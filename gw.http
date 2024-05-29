@@ -5,7 +5,38 @@ GET http://localhost:8888/hello
 GET http://localhost:8888/gw
 
 ### POST user
-POST http://localhost:8888/ga/cn.chasen.rpc.demo.api.UserService
+POST http://localhost:8888/gw/cn.chasen.rpc.demo.api.UserService
+Content-Type: application/json
+
+{
+  "service": "cn.chasen.rpc.demo.api.UserService",
+  "methodSign": "findById@1_int",
+  "args":[100]
+}
+
+
+### POST csrpc
+POST http://localhost:8888/gw/csrpc/cn.chasen.rpc.demo.api.UserService
+Content-Type: application/json
+
+{
+  "service": "cn.chasen.rpc.demo.api.UserService",
+  "methodSign": "findById@1_int",
+  "args":[100]
+}
+
+### POST direct
+POST http://localhost:8888/gw/direct/cn.chasen.rpc.demo.api.UserService
+Content-Type: application/json
+
+{
+  "service": "cn.chasen.rpc.demo.api.UserService",
+  "methodSign": "findById@1_int",
+  "args":[100]
+}
+
+### POST direct
+POST http://localhost:8888/gw/direct/cn.chasen.rpc.demo.api.UserService?backend=http://localhost:8081/chasenrpc
 Content-Type: application/json
 
 {

@@ -2,6 +2,7 @@ package io.chasen.gateway.config;
 
 import cn.chasen.rpc.core.api.RegistryCenter;
 import cn.chasen.rpc.core.registry.ck.ChasenRegistryCenter;
+import io.chasen.gateway.plugin.GatewayPlugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
@@ -30,7 +31,7 @@ public class GatewayConfig {
         return args -> {
             SimpleUrlHandlerMapping handlerMapping = context.getBean(SimpleUrlHandlerMapping.class);
             Properties mappings = new Properties();
-            mappings.put("/ga/**", "gatewayWebHandler");
+            mappings.put(GatewayPlugin.GATEWAY_PREFIX + "/**", "gatewayWebHandler");
             handlerMapping.setMappings(mappings);
             handlerMapping.initApplicationContext();
         };
